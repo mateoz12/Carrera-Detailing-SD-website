@@ -36,7 +36,7 @@ export function Navigation() {
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <a href="#" className="flex items-center gap-2">
             <span className="text-lg font-light tracking-[0.25em] uppercase text-foreground">
-              La Jolla Detail Co.
+              Carrera Detailing San Diego
             </span>
           </a>
 
