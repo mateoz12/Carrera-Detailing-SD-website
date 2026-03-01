@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 
 // Replace with your access key from https://web3forms.com
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY"
+const WEB3FORMS_ACCESS_KEY = "8e066ee8-28ef-41ae-95bb-b59033b1632e"
 
 export function BookingForm() {
   const [submitted, setSubmitted] = useState(false)
