@@ -33,14 +33,14 @@ export function Navigation() {
             : "bg-transparent"
         }`}
       >
-        <nav className="mx-auto grid max-w-7xl grid-cols-3 items-center px-6 py-4 lg:px-8">
+        <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <a href="#" className="flex items-center gap-2">
             <span className="text-lg font-light tracking-[0.25em] uppercase text-foreground">
               Carrera Detailing San Diego
             </span>
           </a>
 
-          <div className="hidden items-center justify-center gap-10 md:flex">
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 md:flex">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -52,7 +52,7 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="hidden items-center justify-end gap-6 md:flex">
+          <div className="hidden items-center gap-6 md:flex">
             <a
               href="tel:+1234567890"
               className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
