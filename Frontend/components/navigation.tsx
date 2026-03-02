@@ -33,14 +33,14 @@ export function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-6">
         <a href="#" className="flex items-center">
           <Image
             src="/images/logo.png"
             alt="Carrera Detailing Co."
-            width={260}
-            height={130}
-            className="h-18 w-auto brightness-0 invert"
+            width={173}
+            height={87}
+            className="h-12 w-auto brightness-0 invert"
             priority
           />
         </a>
