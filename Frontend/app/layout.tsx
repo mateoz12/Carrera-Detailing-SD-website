@@ -14,26 +14,26 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'La Jolla Detail Co. | Premium Mobile Interior Detailing',
+  title: 'Carrera Detailing Co. | Premium Mobile Interior Detailing in La Jolla & San Diego',
   description:
-    'Premium concierge mobile interior detailing for luxury vehicles in La Jolla & San Diego. We restore your car\'s interior to showroom condition at your home or office.',
+    'Luxury mobile interior car detailing for San Diego\'s finest vehicles. Premium concierge detailing service at your home or office. Serving La Jolla, Del Mar, Pacific Beach & Rancho Santa Fe.',
   keywords: [
     'Mobile Detailing La Jolla',
     'Interior Car Detailing La Jolla',
     'Mobile Detailer San Diego',
-    'Luxury Car Detailing',
+    'Luxury Car Detailing San Diego',
+    'Premium Auto Detailing La Jolla',
     'Mobile Interior Detailing San Diego',
   ],
   openGraph: {
-    title: 'La Jolla Detail Co. | Premium Mobile Interior Detailing',
-    description:
-      'Premium concierge mobile interior detailing for luxury vehicles in La Jolla & San Diego.',
+    title: 'Carrera Detailing Co. | Premium Mobile Interior Detailing',
+    description: 'Luxury mobile interior car detailing for San Diego\'s finest vehicles.',
     type: 'website',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#111111',
+  themeColor: '#0a0a0a',
   width: 'device-width',
   initialScale: 1,
 }

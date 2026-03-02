@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Phone } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Results", href: "#results" },
   { label: "Process", href: "#process" },
-  { label: "Reviews", href: "#reviews" },
+  { label: "Reviews", href: "#testimonials" },
 ]
 
 export function Navigation() {
@@ -16,97 +17,91 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener("scroll", onScroll)
-    return () => window.removeEventListener("scroll", onScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
-    <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-background/90 backdrop-blur-md border-b border-border"
-            : "bg-transparent"
-        }`}
-      >
-        <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <a href="#" className="flex items-center gap-2">
-            <span className="text-lg font-light tracking-[0.25em] uppercase text-foreground">
-              Carrera Detailing San Diego
-            </span>
-          </a>
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 1.3, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-background/90 backdrop-blur-md border-b border-border"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="#" className="flex items-center">
+          <Image
+            src="/images/logo.png"
+            alt="Carrera Detailing Co."
+            width={260}
+            height={130}
+            className="h-18 w-auto brightness-0 invert"
+            priority
+          />
+        </a>
 
-          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-10 md:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-light tracking-widest uppercase text-muted-foreground transition-colors duration-300 hover:text-foreground"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
             <a
-              href="tel:+1234567890"
-              className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              key={link.href}
+              href={link.href}
+              className="text-sm font-light uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
             >
-              <Phone className="h-4 w-4" />
-              <span className="sr-only">Call us</span>
+              {link.label}
             </a>
-            <a
-              href="#book"
-              className="border border-foreground bg-foreground px-6 py-2.5 text-xs font-medium tracking-[0.2em] uppercase text-primary-foreground transition-all duration-300 hover:bg-transparent hover:text-foreground"
-            >
-              Book Your Detail
-            </a>
-          </div>
-
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="justify-self-end text-foreground md:hidden"
-            aria-label="Toggle menu"
+          ))}
+          <a
+            href="#book"
+            className="bg-primary px-6 py-2.5 text-sm font-medium uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
           >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </nav>
-      </motion.header>
+            Book Now
+          </a>
+        </div>
+
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="text-foreground md:hidden"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
 
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-background/98 backdrop-blur-lg md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-md md:hidden"
           >
-            {navLinks.map((link) => (
+            <div className="flex flex-col gap-4 px-6 py-6">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-sm font-light uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              ))}
               <a
-                key={link.href}
-                href={link.href}
+                href="#book"
                 onClick={() => setMobileOpen(false)}
-                className="text-2xl font-light tracking-[0.2em] uppercase text-foreground"
+                className="mt-2 bg-primary px-6 py-3 text-center text-sm font-medium uppercase tracking-wider text-primary-foreground"
               >
-                {link.label}
+                Book Now
               </a>
-            ))}
-            <a
-              href="#book"
-              onClick={() => setMobileOpen(false)}
-              className="mt-4 border border-foreground bg-foreground px-8 py-3 text-sm font-medium tracking-[0.2em] uppercase text-primary-foreground"
-            >
-              Book Your Detail
-            </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </motion.nav>
   )
 }

@@ -7,11 +7,11 @@ import { Services } from "@/components/services"
 import { Process } from "@/components/process"
 import { Testimonials } from "@/components/testimonials"
 import { ServiceArea } from "@/components/service-area"
-import { BookingForm } from "@/components/booking-form"
+import { BookNow } from "@/components/book-now"
 import { Footer } from "@/components/footer"
 import { StickyBookButton } from "@/components/sticky-book-button"
 
-export default function Home() {
+export default function Page() {
   return (
     <main>
       <Navigation />
@@ -23,7 +23,7 @@ export default function Home() {
       <Process />
       <Testimonials />
       <ServiceArea />
-      <BookingForm />
+      <BookNow />
       <Footer />
       <StickyBookButton />
     </main>

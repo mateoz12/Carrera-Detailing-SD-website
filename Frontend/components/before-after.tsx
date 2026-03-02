@@ -2,177 +2,189 @@
 
 import { useState, useRef, useCallback } from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
-interface BeforeAfterSliderProps {
-  image: string
-  alt: string
-  label: string
-}
-
-function BeforeAfterSlider({ image, alt, label }: BeforeAfterSliderProps) {
-  const [position, setPosition] = useState(50)
+function BeforeAfterSlider({
+  beforeSrc,
+  afterSrc,
+  beforeAlt,
+  afterAlt,
+}: {
+  beforeSrc: string
+  afterSrc: string
+  beforeAlt: string
+  afterAlt: string
+}) {
+  const [sliderPosition, setSliderPosition] = useState(50)
+  const [isDragging, setIsDragging] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
-  const isDragging = useRef(false)
 
-  const updatePosition = useCallback((clientX: number) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    const x = clientX - rect.left
-    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100))
-    setPosition(percent)
-  }, [])
+  const handleMove = useCallback(
+    (clientX: number) => {
+      if (!containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
+      const percent = (x / rect.width) * 100
+      setSliderPosition(percent)
+    },
+    []
+  )
 
-  const handleMouseDown = () => {
-    isDragging.current = true
-  }
+  const handleMouseDown = () => setIsDragging(true)
+  const handleMouseUp = () => setIsDragging(false)
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
-      if (!isDragging.current) return
-      updatePosition(e.clientX)
+      if (!isDragging) return
+      handleMove(e.clientX)
     },
-    [updatePosition]
+    [isDragging, handleMove]
   )
-
-  const handleMouseUp = () => {
-    isDragging.current = false
-  }
 
   const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
-      updatePosition(e.touches[0].clientX)
+      handleMove(e.touches[0].clientX)
     },
-    [updatePosition]
+    [handleMove]
   )
 
   return (
-    <div className="space-y-4">
+    <div
+      ref={containerRef}
+      className="relative aspect-[4/3] w-full cursor-col-resize select-none overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      onTouchMove={handleTouchMove}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
+      role="slider"
+      aria-label="Before and after comparison slider"
+      aria-valuenow={Math.round(sliderPosition)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowLeft") setSliderPosition((p) => Math.max(0, p - 2))
+        if (e.key === "ArrowRight") setSliderPosition((p) => Math.min(100, p + 2))
+      }}
+    >
+      {/* After Image (full) */}
+      <Image
+        src={afterSrc}
+        alt={afterAlt}
+        fill
+        className="object-cover"
+      />
+
+      {/* Before Image (clipped) */}
       <div
-        ref={containerRef}
-        className="relative aspect-[4/3] cursor-ew-resize select-none overflow-hidden"
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchMove={handleTouchMove}
-        role="slider"
-        aria-label={`Before and after comparison: ${label}`}
-        aria-valuenow={Math.round(position)}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        tabIndex={0}
+        className="absolute inset-0"
+        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
       >
-        {/* After (full image) */}
-        <img
-          src={image}
-          alt={alt}
-          className="absolute inset-0 h-full w-full object-cover"
-          crossOrigin="anonymous"
+        <Image
+          src={beforeSrc}
+          alt={beforeAlt}
+          fill
+          className="object-cover"
         />
-
-        {/* Before (clipped) */}
-        <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${position}%` }}
-        >
-          <img
-            src={image}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover brightness-50 contrast-75 saturate-50"
-            crossOrigin="anonymous"
-          />
-        </div>
-
-        {/* Divider line */}
-        <div
-          className="absolute top-0 bottom-0 z-10 w-px bg-foreground"
-          style={{ left: `${position}%` }}
-        >
-          <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-foreground bg-background/80 backdrop-blur-sm">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              className="text-foreground"
-            >
-              <path d="M4 8H12M4 8L6 6M4 8L6 10M12 8L10 6M12 8L10 10" stroke="currentColor" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Labels */}
-        <span className="absolute top-4 left-4 z-10 bg-background/70 px-3 py-1 text-xs tracking-[0.2em] uppercase text-foreground backdrop-blur-sm">
-          Before
-        </span>
-        <span className="absolute top-4 right-4 z-10 bg-background/70 px-3 py-1 text-xs tracking-[0.2em] uppercase text-foreground backdrop-blur-sm">
-          After
-        </span>
       </div>
-      <p className="text-center text-xs font-light tracking-[0.2em] uppercase text-muted-foreground">
-        {label}
-      </p>
+
+      {/* Slider Line */}
+      <div
+        className="absolute top-0 bottom-0 z-10 w-0.5 bg-foreground"
+        style={{ left: `${sliderPosition}%` }}
+      >
+        <div className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-foreground bg-background/80 backdrop-blur-sm">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-foreground">
+            <path d="M5 3L1 8L5 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M11 3L15 8L11 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Labels */}
+      <div className="pointer-events-none absolute top-4 left-4 z-20 bg-background/80 px-3 py-1 text-xs font-light uppercase tracking-widest text-foreground backdrop-blur-sm">
+        Before
+      </div>
+      <div className="pointer-events-none absolute top-4 right-4 z-20 bg-background/80 px-3 py-1 text-xs font-light uppercase tracking-widest text-foreground backdrop-blur-sm">
+        After
+      </div>
     </div>
   )
 }
 
-const slides = [
-  {
-    image: "/images/before-after-1.jpg",
-    alt: "Before and after seat restoration",
-    label: "Seat Restoration",
-  },
-  {
-    image: "/images/before-after-2.jpg",
-    alt: "Before and after carpet extraction",
-    label: "Carpet Extraction",
-  },
-  {
-    image: "/images/before-after-3.jpg",
-    alt: "Before and after dashboard detailing",
-    label: "Dashboard Detail",
-  },
-]
-
 export function BeforeAfter() {
   return (
-    <section id="results" className="bg-secondary py-28 lg:py-36">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="results" className="bg-secondary/30 py-24 lg:py-32">
+      <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-20 text-center"
+          transition={{ duration: 1.3 }}
+          className="mb-16 text-center"
         >
-          <p className="mb-4 text-xs font-light tracking-[0.4em] uppercase text-accent">
+          <p className="mb-4 text-xs font-light uppercase tracking-[0.3em] text-gold">
             Our Work
           </p>
-          <h2 className="font-serif text-4xl font-light tracking-tight text-foreground text-balance md:text-5xl">
-            Results Speak for Themselves
+          <h2 className="font-serif text-3xl font-light text-foreground md:text-4xl lg:text-5xl">
+            <span className="text-balance">Results Speak for Themselves</span>
           </h2>
         </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-3">
-          {slides.map((slide, i) => (
-            <motion.div
-              key={slide.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 1.3,
-                delay: i * 0.15,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <BeforeAfterSlider
-                image={slide.image}
-                alt={slide.alt}
-                label={slide.label}
-              />
-            </motion.div>
-          ))}
+        <div className="grid gap-6 md:grid-cols-3">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.3 }}
+          >
+            <BeforeAfterSlider
+              beforeSrc="/images/before-interior.jpg"
+              afterSrc="/images/after-interior.jpg"
+              beforeAlt="Car interior before detailing"
+              afterAlt="Car interior after detailing"
+            />
+            <p className="mt-3 text-center text-xs font-light uppercase tracking-[0.2em] text-muted-foreground">
+              Full Interior
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.3, delay: 0.15 }}
+          >
+            <BeforeAfterSlider
+              beforeSrc="/images/before-seats.jpg"
+              afterSrc="/images/after-seats.jpg"
+              beforeAlt="Leather seats before detailing"
+              afterAlt="Leather seats after detailing"
+            />
+            <p className="mt-3 text-center text-xs font-light uppercase tracking-[0.2em] text-muted-foreground">
+              Leather Restoration
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.3, delay: 0.3 }}
+          >
+            <BeforeAfterSlider
+              beforeSrc="/images/before-dashboard.jpg"
+              afterSrc="/images/after-dashboard.jpg"
+              beforeAlt="Dashboard before detailing"
+              afterAlt="Dashboard after detailing"
+            />
+            <p className="mt-3 text-center text-xs font-light uppercase tracking-[0.2em] text-muted-foreground">
+              Dashboard & Console
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>
