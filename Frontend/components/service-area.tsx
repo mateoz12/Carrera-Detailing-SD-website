@@ -2,6 +2,12 @@
 
 import { motion } from "framer-motion"
 import { MapPin } from "lucide-react"
+import dynamic from "next/dynamic"
+
+const MapBackground = dynamic(
+  () => import("./map-background").then((m) => ({ default: m.MapBackground })),
+  { ssr: false }
+)
 
 const areas = [
   "La Jolla",
@@ -13,8 +19,14 @@ const areas = [
 
 export function ServiceArea() {
   return (
-    <section className="border-y border-border bg-secondary/30 py-24 lg:py-32">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="relative overflow-hidden border-y border-border py-24 lg:py-32">
+      {/* Dark map background */}
+      <MapBackground />
+
+      {/* Darkening overlay so text pops */}
+      <div className="absolute inset-0 z-10 bg-background/78" />
+
+      <div className="relative z-20 mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
