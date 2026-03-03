@@ -1,13 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Star, Car, SprayCan, MapPin } from "lucide-react"
+import { Star, Car, SprayCan } from "lucide-react"
 
 const trustItems = [
   { icon: Star, label: "5-Star Rated" },
   { icon: Car, label: "Fully Mobile" },
   { icon: SprayCan, label: "Premium Products" },
-  { icon: MapPin, label: "La Jolla & San Diego" },
 ]
 
 export function TrustBar() {
