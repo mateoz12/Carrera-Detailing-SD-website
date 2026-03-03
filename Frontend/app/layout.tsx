@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Cinzel } from 'next/font/google'
+import { DM_Sans, Cinzel } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
 })
 
 const cinzel = Cinzel({
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cinzel.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${cinzel.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />
