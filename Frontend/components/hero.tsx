@@ -58,19 +58,13 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.3, delay: 1.1 }}
-          className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          className="mt-12 flex items-center justify-center"
         >
           <a
             href="#book"
-            className="w-full bg-primary px-10 py-4 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
+            className="bg-primary px-10 py-4 text-sm font-medium uppercase tracking-widest text-primary-foreground transition-opacity hover:opacity-90"
           >
             Book Your Detail
-          </a>
-          <a
-            href="#results"
-            className="w-full border border-border px-10 py-4 text-sm font-light uppercase tracking-widest text-foreground transition-colors hover:border-muted-foreground sm:w-auto"
-          >
-            View Results
           </a>
         </motion.div>
       </div>
