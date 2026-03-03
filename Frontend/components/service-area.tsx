@@ -19,7 +19,7 @@ const areas = [
 
 export function ServiceArea() {
   return (
-    <section className="relative overflow-hidden border-y border-border py-24 lg:py-32">
+    <section className="relative overflow-hidden border-y border-border py-24 lg:py-32 min-h-[350px]">
       {/* Dark map background */}
       <MapBackground />
 

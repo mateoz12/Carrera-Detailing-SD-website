@@ -58,6 +58,10 @@ export function MapBackground() {
       })
 
       mapInstanceRef.current = map
+
+      // Force Leaflet to recalculate container size — fixes blank map on mobile
+      setTimeout(() => map.invalidateSize(), 100)
+      setTimeout(() => map.invalidateSize(), 500)
     }
 
     // Load Leaflet CSS from CDN
