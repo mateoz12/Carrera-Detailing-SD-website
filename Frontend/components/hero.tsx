@@ -40,7 +40,7 @@ export function Hero() {
         >
           <span className="flex flex-col items-center sm:flex-row sm:items-end justify-center gap-1 sm:gap-4 md:gap-5">
             <span className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl uppercase">Carrera</span>
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-warm-gray sm:pb-1">Detailing Co.</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-warm-gray uppercase tracking-widest sm:pb-1">Detailing Co.</span>
           </span>
           <span className="mt-4 block text-lg font-light text-gold sm:text-xl md:text-2xl lg:text-3xl tracking-widest uppercase">
             Premium Interior Detailing
