@@ -15,7 +15,10 @@ export function Hero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+        {/* Dark blue cinematic tint */}
+        <div className="absolute inset-0 bg-accent/30 mix-blend-multiply" />
+        {/* Gradient fade for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
       </div>
 
       {/* Content */}

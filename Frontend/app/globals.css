@@ -28,7 +28,7 @@
 
 @theme inline {
   --font-sans: 'DM Sans', 'DM Sans Fallback', sans-serif;
-  --font-serif: 'Cinzel', 'Cinzel Fallback', serif;
+  --font-serif: 'Merriweather', 'Merriweather Fallback', serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

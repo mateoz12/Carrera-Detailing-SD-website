@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Cinzel } from 'next/font/google'
+import { DM_Sans, Merriweather } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -8,9 +8,10 @@ const dmSans = DM_Sans({
   variable: '--font-dm-sans',
 })
 
-const cinzel = Cinzel({
+const merriweather = Merriweather({
   subsets: ['latin'],
-  variable: '--font-cinzel',
+  weight: ['300', '400', '700', '900'],
+  variable: '--font-merriweather',
 })
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${cinzel.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${merriweather.variable}`}>
       <body className="font-sans antialiased">
         {children}
         <Analytics />
