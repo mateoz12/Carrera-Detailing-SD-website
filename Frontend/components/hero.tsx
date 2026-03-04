@@ -16,9 +16,9 @@ export function Hero() {
           priority
         />
         {/* Dark blue cinematic tint */}
-        <div className="absolute inset-0 bg-accent/30 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-accent/20 mix-blend-multiply" />
         {/* Gradient fade for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/20 to-background/90" />
       </div>
 
       {/* Content */}
