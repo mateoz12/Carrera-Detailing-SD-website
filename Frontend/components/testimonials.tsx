@@ -38,7 +38,7 @@ export function Testimonials() {
           <p className="mb-4 text-xs font-light uppercase tracking-[0.3em] text-gold">
             Client Experiences
           </p>
-          <h2 className="font-serif text-3xl font-light text-foreground md:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-light text-foreground uppercase tracking-widest md:text-4xl lg:text-5xl">
             <span className="text-balance">What Our Clients Say</span>
           </h2>
         </motion.div>

@@ -129,7 +129,7 @@ export function BeforeAfter() {
           <p className="mb-4 text-xs font-light uppercase tracking-[0.3em] text-gold">
             Our Work
           </p>
-          <h2 className="font-serif text-3xl font-light text-foreground md:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-light text-foreground uppercase tracking-widest md:text-4xl lg:text-5xl">
             <span className="text-balance">Results Speak for Themselves</span>
           </h2>
         </motion.div>

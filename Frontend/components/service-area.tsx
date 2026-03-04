@@ -37,7 +37,7 @@ export function ServiceArea() {
           <p className="mb-4 text-xs font-light uppercase tracking-[0.3em] text-gold">
             Coverage
           </p>
-          <h2 className="mb-12 font-serif text-3xl font-light text-foreground md:text-4xl lg:text-5xl">
+          <h2 className="mb-12 font-serif text-3xl font-light text-foreground uppercase tracking-widest md:text-4xl lg:text-5xl">
             <span className="text-balance">Proudly Serving</span>
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">

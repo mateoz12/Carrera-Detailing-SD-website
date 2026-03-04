@@ -36,7 +36,7 @@ export function BookNow() {
           <p className="mb-4 text-xs font-light uppercase tracking-[0.3em] text-gold">
             Get Started
           </p>
-          <h2 className="font-serif text-3xl font-light text-foreground md:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-light text-foreground uppercase tracking-widest md:text-4xl lg:text-5xl">
             <span className="text-balance">Experience Premium Mobile Detailing</span>
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed text-muted-foreground">
